@@ -68,6 +68,7 @@
     "lamassu-nuke-db": "./bin/lamassu-nuke-db"
   },
   "scripts": {
+    "start": "node bin/lamassu-server",
     "test": "ava"
   },
   "devDependencies": {
