@@ -2,19 +2,9 @@ variable "blockchainDir" {
   default = "~/.lamassu/blockchains"
 }
 
-data "template_file" "tunnel_conf" {
-  template = "${file("./blockchains/tunnel.conf")}"
-
-  vars {
-    blockchain = "zcash"
-    ipv4_address = "${digitalocean_droplet.zcashd.ipv4_address}"
-    port = "8232"
-  }
-}
-
 resource "digitalocean_ssh_key" "default" {
-  name       = "Terraform Example"
-  public_key = "${file("./scratch/server-test.pub")}"
+  name       = "Lamassu Server"
+  public_key = "${file("~/.ssh/id_rsa.pub")}"
 }
 
 resource "digitalocean_droplet" "zcashd" {
@@ -27,7 +17,7 @@ resource "digitalocean_droplet" "zcashd" {
   connection {
     type     = "ssh"
     user     = "root"
-    private_key = "${file("./server-test")}"
+    private_key = "${file("~/.ssh/id_rsa")}"
   }
 
   provisioner "file" {
@@ -40,15 +30,12 @@ resource "digitalocean_droplet" "zcashd" {
     destination = "/tmp/zcash.conf"
   }
 
-  provisioner "local-exec" {
-    command = "./local-pre-install"
-  }
-
   provisioner "remote-exec" {
     script  = "./blockchains/zcashd/install.sh"
   }
-
-  provisioner "local-exec" {
-    command = "echo ${template_file.tunnel_conf.rendered} > /etc/supervisor/zcash-tunnel.conf"
-  }
 }
+
+output "ip_address" {
+  value = "${digitalocean_droplet.zcashd.ipv4_address}"
+}
+
