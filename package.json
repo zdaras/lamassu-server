@@ -25,6 +25,7 @@
     "helmet": "^3.6.1",
     "kraken-api": "DeX3/npm-kraken-api",
     "lodash": "^4.17.2",
+    "make-dir": "^1.0.0",
     "mem": "^1.1.0",
     "migrate": "^0.2.2",
     "minimist": "^1.2.0",
