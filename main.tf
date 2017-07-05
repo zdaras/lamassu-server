@@ -6,6 +6,22 @@ module "zcash" {
   ssh_key = "${digitalocean_ssh_key.default.id}"
 }
 
+module "litecoin" {
+  source = "./blockchain"
+  name = "litecoin"
+  blockchain_cmd = "litecoind"
+  blockchain_conf = "litecoin.conf"
+  ssh_key = "${digitalocean_ssh_key.default.id}"
+}
+
+module "dash" {
+  source = "./blockchain"
+  name = "dash"
+  blockchain_cmd = "dashd"
+  blockchain_conf = "dash.conf"
+  ssh_key = "${digitalocean_ssh_key.default.id}"
+}
+
 module "bitcoin" {
   source = "./blockchain"
   name = "bitcoin"
@@ -16,6 +32,6 @@ module "bitcoin" {
 
 resource "digitalocean_ssh_key" "default" {
   name       = "Lamassu Server"
-  public_key = "${file("~/.ssh/id_rsa.pub")}"
+  public_key = "${file("${pathexpand("~/.ssh/id_rsa.pub")}")}"
 }
 

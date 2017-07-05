@@ -30,7 +30,7 @@ resource "digitalocean_droplet" "blockchain_server" {
   connection {
     type     = "ssh"
     user     = "root"
-    private_key = "${file("~/.ssh/id_rsa")}"
+    private_key = "${file("${pathexpand("~/.ssh/id_rsa")}")}"
   }
 
   provisioner "file" {

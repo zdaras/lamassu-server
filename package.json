@@ -23,6 +23,7 @@
     "express-ws": "^3.0.0",
     "got": "^7.0.0",
     "helmet": "^3.6.1",
+    "inquirer": "^3.1.1",
     "kraken-api": "DeX3/npm-kraken-api",
     "lodash": "^4.17.2",
     "make-dir": "^1.0.0",
